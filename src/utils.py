@@ -18,11 +18,21 @@ def bits_required(max_value: int) -> int:
 
 def calculate_sizes(
     text: str,
-    tokens: list[Token],
-    biggest_offset: int,
-    biggest_length: int
+    tokens: list[Token]
 ) -> tuple[int, int]:
 
+
+
+    biggest_length = 0;
+    biggest_offset = 0; 
+
+
+    for token in tokens:
+        if token.offset > biggest_offset:
+            biggest_offset = token.offset
+        if token.length > biggest_length:
+            biggest_length = token.length
+    
     # Original size
     original_size = len(text) * 8
 

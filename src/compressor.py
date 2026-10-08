@@ -21,17 +21,10 @@ def find_longest_match(data, pos, search_window, look_ahead):
 def compress(data, search_window, look_ahead) -> list[Token]:
     tags = []
     pos = 0
-    
-    biggest_length = 0;
-    biggest_offset = 0; 
 
     while pos < len(data) :
         distance, length = find_longest_match(data, pos, search_window, look_ahead)
-        if biggest_length < length:
-            biggest_length = length
-        if biggest_offset < distance:
-            biggest_offset = distance
-        
+
         if pos + length < len(data):
             next_char = data[pos+length]
         else:
@@ -40,4 +33,4 @@ def compress(data, search_window, look_ahead) -> list[Token]:
         tags.append(Token(distance, length, next_char))
         pos += length + 1
 
-    return tags, biggest_length, biggest_offset   
+    return tags

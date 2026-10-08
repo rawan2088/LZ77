@@ -36,8 +36,8 @@ def compress_file():
     input_path = input("Enter input file path: ").strip()
     output_path = input("Enter output file path: ").strip()
 
-    input_path= 'str.txt'
-    output_path= 'output.txt'
+    # input_path= 'str.txt'
+    # output_path= 'output.txt'
 
     # Read input
     with open(input_path, "r", encoding="utf-8") as file:
@@ -47,7 +47,7 @@ def compress_file():
     look_ahead = int(input("Enter look ahead window size: ").strip())
 
     # compressing stage, it should return the tokens. then we would serizlize it to a file here
-    tokens, biggest_length, biggest_offset = compress(text, search_window, look_ahead) 
+    tokens = compress(text, search_window, look_ahead) 
 
 
     # Write the decompressed text to the output file
@@ -58,9 +58,11 @@ def compress_file():
     #todo: we can add the compression size
     print(f"Compressed into {len(tokens)} tokens.")
     
-    original, compressed = calculate_sizes(text, tokens, biggest_offset, biggest_length)
+    original, compressed = calculate_sizes(text, tokens)
     print(f"Original size: {original} bits.")
     print(f"Compressed size: {compressed} bits.")
+    
+    print(f"Compressed successfully")
     
 
 
@@ -68,8 +70,8 @@ def decompress_file():
     input_path = input("Enter compressed file path: ").strip()
     output_path = input("Enter output file path: ").strip()
     
-    input_path = 'str.txt'
-    output_path = 'output.txt'
+    # input_path = 'str.txt'
+    # output_path = 'output.txt'
     
     with open(input_path, "r", encoding="utf-8") as file:
         text = file.read()
@@ -96,24 +98,9 @@ def decompress_file():
     # Write the decompressed text to the output file
     with open(output_path, "w", encoding="utf-8") as file:
         file.write(letters)
+        
+    print(f"Decompressed successfully")
 
 
 if __name__ == "__main__":
     main()
-    
-# def main():
-#     search_window = int(input("Enter search window size: "))
-#     look_ahead = int(input("Enter look ahead window size: "))
-#     text = "ABAABABAABBBBBBBBBBBBA"
-
-#     tags = compress(text, search_window, look_ahead)
-
-#     for token in tags:
-#         print(f"<{token.offset},{token.length},{'null' if token.next_char is None else token.next_char}>>")
-
-#     result = decompress(tags)
-#     print(result)
-#     print(result == text)
-
-# if __name__ == "__main__":
-#     main()    
